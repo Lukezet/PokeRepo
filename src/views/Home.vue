@@ -19,7 +19,7 @@
 </template>
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router'; // Importa useRouter
+import { useRouter } from 'vue-router'; 
 
 const router = useRouter(); // Obtiene la instancia del router
 const show = ref(false);

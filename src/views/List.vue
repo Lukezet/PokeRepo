@@ -7,45 +7,33 @@
             class="mb-12" /></div>
       </Transition>
     </div>
-    <!-- <img :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${3}.png`" /> -->
-    <PokeList :loading="loading" :pokemons="pokemons"/>
-    <FooterFilter/>
+
+    <PokeList :loading="loading" :pokemons="pokemons" :filter="filter" />
+    <FooterFilter :filter="filter" @update:filter="filter = $event"/>
   </div>
+
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import axiosClient from '../axiosClient';
 import FooterFilter from '../components/FooterFilter.vue'
 import PokeList from '../components/PokeList.vue'
+import { usePokemonStore } from '../stores/PokemonStore'
 
+const store = usePokemonStore()
+const filter = ref('all')
 const appear = ref(false);
 const loading = ref(true);
-const pokemons = ref([]);
+const pokemons = computed(() => store.allPokemons)
 
-const getPokemons = async () => {
-  const response = await axiosClient.get('/pokemon');
-  console.log(formatPokemons(response.data))
-  pokemons.value = formatPokemons(response.data);
-};
 
-const formatPokemons = (data) => {
-  return data.results.map(pokemon => {
-    const id = pokemon.url.split('/').filter(Boolean).pop(); // extrae el número del final de la URL
-    return {
-      name: pokemon.name,
-      id: Number(id)
-    };
-  });
-};
-
-onMounted(() => {
+onMounted(async () => {
   appear.value = true;
-  getPokemons()
+  await store.fetchPokemons(); // carga al store
   const timer = setTimeout(() => {
     loading.value = false;
     clearTimeout(timer);
-  }, 2000);
+  }, 1500);
   
   return () => clearTimeout(timer); // Cleanup
   
