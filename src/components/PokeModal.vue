@@ -10,8 +10,11 @@
               <section class=" relative w-full h-[200px] sm:h-[300px] object-contain ">
                 <img src="../assets/background.svg" alt=""
                   class="absolute inset-0 w-full h-full object-cover z-0 rounded-t-md" />
+                <img v-if="!imageLoaded" src="../assets/Loader.svg" alt="loading"
+                  class="w-16 sm:w-24 absolute mx-auto bottom-8 left-16 sm:left-36 xl:left-49 animate-spin" />
 
-                <img :src="pokemon.image" alt="pokemon image" class="w-40 sm:w-64 absolute mx-auto bottom-2 left-10 sm:left-36 xl:left-49" />
+                <img :src="pokemon.image" @load="imageLoaded = true" alt="pokemon image"
+                  class="w-40 sm:w-64 absolute mx-auto bottom-2 left-10 sm:left-36 xl:left-49" />
                 <button class="absolute top-3 right-3 sm:top-3 sm:right-3 cursor-pointer" @click="emits('close')"><img
                     src="../assets/close.svg" class="w-8 h-8" alt="close"></button>
               </section>
@@ -25,19 +28,19 @@
                     class="mr-2">Height:</strong> {{ pokemon.height }}</p>
                 <p class="border-b-2 py-4 px-1 border-[#E8E8E8] text-xl font-[500] secondary-color "><strong
                     class="mr-2">Types:</strong> {{ pokemon.types?.join(', ') || 'Unknown' }}</p>
-                <div class="flex justify-between items-center  mt-4"> 
+                <div class="flex justify-between items-center  mt-4">
                   <button @click="copyToClipboard"
                     class="relative btn-poke text-white font-[500]  py-3 px-2 sm:px-6 rounded-full transition duration-200 cursor-pointer text-lg sm:text-xl">
                     Share to my friends
-                    <span
-                    v-if="copied"
-                    class="absolute -bottom-8 sm:top-3 right-0 sm:-right-24 h-6 bg-[#5c5c5c] text-white text-sm px-3 py-1 rounded-md shadow-md transition-opacity duration-300 opacity-75">
-                    📋 Copied!
-                  </span>
+                    <span v-if="copied"
+                      class="absolute -bottom-8 sm:top-3 right-0 sm:-right-24 h-6 bg-[#5c5c5c] text-white text-sm px-3 py-1 rounded-md shadow-md transition-opacity duration-300 opacity-75">
+                      📋 Copied!
+                    </span>
                   </button>
-                  
-                  <img :src="store.isFavorite(pokemon.name) ? Active : Disabled" alt="star" class="h-14 w-14 hover:scale-110 transition-all cursor-pointer" 
-                  @click.stop="store.toggleFavorite(pokemon)"/>
+
+                  <img :src="store.isFavorite(pokemon.name) ? Active : Disabled" alt="star"
+                    class="h-14 w-14 hover:scale-110 transition-all cursor-pointer"
+                    @click.stop="store.toggleFavorite(pokemon)" />
                 </div>
 
               </div>
@@ -66,7 +69,7 @@ const store = usePokemonStore();
 
 const pokemon = ref({})
 const copied = ref(false)
-
+const imageLoaded =ref(false)
 // const fetchPokemon = async (id) => {
 //   try {
 //     const response = await axiosClient.get(`/pokemon/${id}`);
@@ -109,8 +112,9 @@ const copyToClipboard = () => {
 }
 
 // Bloquear el scroll del body cuando el modal está abierto
-onMounted(async() => {
+onMounted(async () => {
   document.body.style.overflow = 'hidden'
+  imageLoaded.value = false
   pokemon.value = await store.fetchPokemon(props.pokemonId)
 })
 
@@ -135,17 +139,22 @@ onBeforeUnmount(() => {
 
 @media (max-width: 380px) {
   .modalx {
-    top: 1rem; /* equivalente a top-12 */
+    top: 1rem;
+    /* equivalente a top-12 */
   }
 }
-@media (max-height: 780px){
+
+@media (max-height: 780px) {
   .modalx {
-    top: 2rem; /* equivalente a top-12 */
+    top: 2rem;
+    /* equivalente a top-12 */
   }
 }
-@media (max-height: 680px){
+
+@media (max-height: 680px) {
   .modalx {
-    top: 0.5rem; /* equivalente a top-12 */
+    top: 0.5rem;
+    /* equivalente a top-12 */
   }
 }
 
