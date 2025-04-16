@@ -4,8 +4,8 @@
     <Transition>
       <div v-if="show" class="min-h-screen flex flex-col items-center justify-center  text-center mb-24 sm:mb-0">
         <img src="../assets/pikachu.svg" alt="Pikachu" class="mb-12" />
-        <h1 class="text-2xl  text-gray-800 mb-6 font-lato font-[700] ">Welcome to Pokédex</h1>
-        <p class="text-gray-600 max-w-md mb-12 ">
+        <h1 class="text-2xl primary-color mb-6 font-lato font-[700] ">Welcome to Pokédex</h1>
+        <p class="secondary-color max-w-md mb-12 ">
           The digital encyclopedia created by Professor Oak is an invaluable tool to Trainers in the Pokémon world.
         </p>
         <button class="btn-poke text-white font-[500] py-2 px-6 rounded-full transition duration-200 cursor-pointer"

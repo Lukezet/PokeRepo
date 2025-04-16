@@ -55,7 +55,6 @@
 </template>
 <script setup>
 import { onMounted, ref, onBeforeUnmount } from 'vue';
-import axiosClient from '../axiosClient'
 import { usePokemonStore } from '../stores/PokemonStore'
 import Active from '../assets/Active.svg'
 import Disabled from '../assets/Disabled.svg'
@@ -70,30 +69,6 @@ const store = usePokemonStore();
 const pokemon = ref({})
 const copied = ref(false)
 const imageLoaded =ref(false)
-// const fetchPokemon = async (id) => {
-//   try {
-//     const response = await axiosClient.get(`/pokemon/${id}`);
-
-//     // Verificamos que la respuesta tenga datos válidos
-//     if (response && response.data) {
-//       pokemon.value = {
-//         name: response.data.name,
-//         weight: response.data.weight,
-//         height: response.data.height,
-//         types: response.data.types.map(t => t.type.name),
-//         image: response.data.sprites.other['official-artwork'].front_default,
-//       };
-
-//     } else {
-//       console.warn('Respuesta vacía o inválida:', response);
-//       pokemon.value = null;
-//     }
-
-//   } catch (error) {
-//     console.error('Error al obtener el Pokémon:', error);
-//     pokemon.value = null; // O podés mostrar un error en pantalla si querés
-//   }
-// };
 
 const copyToClipboard = () => {
   if (!pokemon.value) return

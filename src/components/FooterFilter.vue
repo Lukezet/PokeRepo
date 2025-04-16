@@ -48,7 +48,7 @@ onMounted(() => {
 /* Transición mejorada */
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 4.3s ease;
+  transition: all 3.3s ease;
 }
 
 .slide-up-enter-from {

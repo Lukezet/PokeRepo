@@ -3,7 +3,7 @@
 	<div class="fixed w-10/12 sm:w-6/12 top-12 z-10">
 		<input v-model="searchQuery" type="text" placeholder="Search"
 			class="w-full p-4 pl-12 rounded-[5px] placeholder-neutral-300 primary-color bg-white focus:outline-none focus:ring-2 focus:ring-[#F8CC46] shadow-[0_2px_10px_0_rgba(0,0,0,0.04)]">
-		<img class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" fill="none" src="../assets/search.svg">
+		<img class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5" fill="none" src="../assets/search.svg">
 
 	</div>
 	<Transition name="fade-slide">
