@@ -3,10 +3,10 @@
   @apply flex justify-center items-center shadow-lg bg-gradient-to-r from-red-200 via-red-400 to-red-500  text-white hover:shadow-lg hover:shadow-red-500/50 hover:from-red-400 hover:via-red-600 hover:to-red-500 transition duration-150 ease-in-out md:ease-in border-white;
 }
 .btn-poke {
-  @apply flex justify-center items-center shadow-lg bg-gradient-to-r bg-[#F22539] rounded-full text-white hover:shadow-lg hover:shadow-red-500/50 hover:from-red-400 hover:via-red-500 hover:to-red-600 transition duration-150 ease-in-out md:ease-in border-white;
+  @apply flex justify-center items-center shadow-lg bg-gradient-to-r active:bg-[#C00E20] bg-[#F22539] rounded-full text-white hover:shadow-lg hover:shadow-red-500/50 transition duration-100 ease-in-out md:ease-in border-white;
 }
 .btn-poke-disabled {
-  @apply flex justify-center items-center shadow-lg bg-gradient-to-r bg-[#BFBFBF] rounded-full text-white hover:shadow-lg hover:shadow-red-500/50 hover:from-red-400 hover:via-red-500 hover:to-red-600 transition duration-150 ease-in-out md:ease-in border-white;
+  @apply flex justify-center items-center shadow-lg bg-gradient-to-r active:bg-[#C00E20] bg-[#BFBFBF] rounded-full text-white hover:shadow-lg hover:shadow-neutral-500/50 transition duration-150 ease-in-out md:ease-in border-white;
 }
 .primary-color {
   @apply text-[#353535];

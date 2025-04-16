@@ -7,11 +7,11 @@
             class="w-10/12 md:w-6/12 h-auto bg-white fixed modalx top-[10%] flex flex-col  justify-start items-start rounded-md self-start mt-0">
 
             <div class="relative w-full h-full" v-if="pokemon">
-              <section class=" relative w-full h-[220px] sm:h-[300px] object-contain ">
+              <section class=" relative w-full h-[200px] sm:h-[300px] object-contain ">
                 <img src="../assets/background.svg" alt=""
                   class="absolute inset-0 w-full h-full object-cover z-0 rounded-t-md" />
 
-                <img :src="pokemon.image" alt="pokemon image" class="w-44 sm:w-64 absolute mx-auto bottom-2 left-10 sm:left-36 xl:left-49" />
+                <img :src="pokemon.image" alt="pokemon image" class="w-40 sm:w-64 absolute mx-auto bottom-2 left-10 sm:left-36 xl:left-49" />
                 <button class="absolute top-3 right-3 sm:top-3 sm:right-3 cursor-pointer" @click="emits('close')"><img
                     src="../assets/close.svg" class="w-8 h-8" alt="close"></button>
               </section>
@@ -27,7 +27,7 @@
                     class="mr-2">Types:</strong> {{ pokemon.types?.join(', ') || 'Unknown' }}</p>
                 <div class="flex justify-between items-center  mt-4"> 
                   <button @click="copyToClipboard"
-                    class="relative btn-poke  text-white font-[500]  py-3 px-2 sm:px-6 rounded-full transition duration-200 cursor-pointer text-lg sm:text-xl">
+                    class="relative btn-poke text-white font-[500]  py-3 px-2 sm:px-6 rounded-full transition duration-200 cursor-pointer text-lg sm:text-xl">
                     Share to my friends
                     <span
                     v-if="copied"
@@ -67,30 +67,30 @@ const store = usePokemonStore();
 const pokemon = ref({})
 const copied = ref(false)
 
-const fetchPokemon = async (id) => {
-  try {
-    const response = await axiosClient.get(`/pokemon/${id}`);
+// const fetchPokemon = async (id) => {
+//   try {
+//     const response = await axiosClient.get(`/pokemon/${id}`);
 
-    // Verificamos que la respuesta tenga datos válidos
-    if (response && response.data) {
-      pokemon.value = {
-        name: response.data.name,
-        weight: response.data.weight,
-        height: response.data.height,
-        types: response.data.types.map(t => t.type.name),
-        image: response.data.sprites.other['official-artwork'].front_default,
-      };
+//     // Verificamos que la respuesta tenga datos válidos
+//     if (response && response.data) {
+//       pokemon.value = {
+//         name: response.data.name,
+//         weight: response.data.weight,
+//         height: response.data.height,
+//         types: response.data.types.map(t => t.type.name),
+//         image: response.data.sprites.other['official-artwork'].front_default,
+//       };
 
-    } else {
-      console.warn('Respuesta vacía o inválida:', response);
-      pokemon.value = null;
-    }
+//     } else {
+//       console.warn('Respuesta vacía o inválida:', response);
+//       pokemon.value = null;
+//     }
 
-  } catch (error) {
-    console.error('Error al obtener el Pokémon:', error);
-    pokemon.value = null; // O podés mostrar un error en pantalla si querés
-  }
-};
+//   } catch (error) {
+//     console.error('Error al obtener el Pokémon:', error);
+//     pokemon.value = null; // O podés mostrar un error en pantalla si querés
+//   }
+// };
 
 const copyToClipboard = () => {
   if (!pokemon.value) return
@@ -109,9 +109,9 @@ const copyToClipboard = () => {
 }
 
 // Bloquear el scroll del body cuando el modal está abierto
-onMounted(() => {
+onMounted(async() => {
   document.body.style.overflow = 'hidden'
-  fetchPokemon(props.pokemonId)
+  pokemon.value = await store.fetchPokemon(props.pokemonId)
 })
 
 // Restaurar el scroll cuando el modal se cierra
@@ -136,6 +136,16 @@ onBeforeUnmount(() => {
 @media (max-width: 380px) {
   .modalx {
     top: 1rem; /* equivalente a top-12 */
+  }
+}
+@media (max-height: 780px){
+  .modalx {
+    top: 2rem; /* equivalente a top-12 */
+  }
+}
+@media (max-height: 680px){
+  .modalx {
+    top: 0.5rem; /* equivalente a top-12 */
   }
 }
 

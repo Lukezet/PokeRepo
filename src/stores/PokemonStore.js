@@ -4,9 +4,11 @@ export const usePokemonStore = defineStore('pokemon', {
   state: () => ({
     allPokemons: [],
     favorites: [],
+    pokemons: {},
   }),
 
   actions: {
+    
     async fetchPokemons() {
       const response = await axiosClient.get('/pokemon')
       response.data.results
@@ -25,6 +27,29 @@ export const usePokemonStore = defineStore('pokemon', {
     isFavorite(name) {
       return this.favorites.some(p => p.name === name)
     },
+
+    async fetchPokemon(id) {
+      if (this.pokemons[id]) return this.pokemons[id]
+
+      try {
+        const response = await axiosClient.get(`/pokemon/${id}`)
+        if (response?.data) {
+          const data = {
+            name: response.data.name,
+            weight: response.data.weight,
+            height: response.data.height,
+            types: response.data.types.map(t => t.type.name),
+            image: response.data.sprites.other['official-artwork'].front_default,
+          }
+          this.pokemons[id] = data
+          return data
+        }
+      } catch (error) {
+        console.error('Error al obtener el Pokémon:', error)
+        return null
+      }
+    }
+
   },
   persist: true,
 })

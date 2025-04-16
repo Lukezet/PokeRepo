@@ -13,10 +13,11 @@
         <p>All</p>
       </button>
 
-      <button @click="localFilter = 'favorites'" class="transition-colors p-2 w-1/2 cursor-pointer" :class="props.filter === 'favorites'
+      <button @click="localFilter = 'favorites'" class="transition-colors p-2 w-1/2 flex justify-center space-x-2 cursor-pointer" :class="props.filter === 'favorites'
         ? 'btn-poke font-medium  '
         : 'btn-poke-disabled hover:text-red-500 p-2'">
-        Favorites
+        <img src="../assets/starwhite.svg" alt="">
+        <p>Favorites</p>
       </button>
 
       </div>
