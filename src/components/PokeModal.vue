@@ -32,7 +32,7 @@
                     <span
                     v-if="copied"
                     class="absolute -bottom-8 sm:top-3 right-0 sm:-right-24 h-6 bg-[#5c5c5c] text-white text-sm px-3 py-1 rounded-md shadow-md transition-opacity duration-300 opacity-75">
-                    ✅ Copied!
+                    📋 Copied!
                   </span>
                   </button>
                   
